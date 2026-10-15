@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# ************************************
+# Section 1:
+# Select a source and target directory.
+# List Dot files to be tracked.
+# ************************************
+
+
+
+
+
+
+
+
+# ************************************
+# Section 2:
+# Create a safe place to store old config
+# files before overwriting them.
+# ****************************************
+
+
+
+
+
+
+# ***********************************
+# Section 3:
+# Loop thru dot files to be tracked:
+# A. Check if a real file already exists in the home folde.
+# B. If it does, move it to the backup folder.
+# C. Create the symbolic link from the repo to the home folder.
+# **************************************************************
+
+
+
+
+
+
+
+
+
+# ************************************
+# Section 4:
+# Source the new files or install system pacages if needed.
+#
+#**********************************************************
