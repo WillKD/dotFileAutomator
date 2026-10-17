@@ -4,8 +4,37 @@
 # Section 1:
 # Select a source and target directory.
 # List Dot files to be tracked.
+# 1. Shell Configurations (.bashrc , .zshrc , .config/fish/)
+# 2. Editor Settings (.vimrc , .config/nvim)
+# 3. Git configuration (.gitconfig (without credentials))
+# 4. Terminal Emulator Configs (.alacritty.yml , .config/kitty/)
+# 5. Window Manager Settings (.config/i3/ , .config/sway/)
+# 6. Tool Configurations (.tmux.conf , .config/starship.toml)
+# =====DO NOT TRACK===================
+# SSH private keys (~/.ssh/id_*)
+# API tokens and credentials
+# Database connection strings
+# License keys
+# Browser cookies or session data
+# Command history files (.bash_history , zsh_history)
 # ************************************
 
+# ++++++++++++Code Logic to be turned into code++++++++++++++++++++++++++++++++++++++++++++
+# We will hard code at first and practice on testfiles
+# check if .onedot file exist
+# then copy onedotfile to a backup
+# then move the file to the .dotfiles directory and leave a symlink to the dotfiles directory
+# in the original file
+
+FILE="/home/Will/.onedottest"
+
+echo "$FILE"
+
+if [[ -f "$FILE" ]]; then
+	echo "File Found."
+else
+	echo "File Not Found!"
+fi
 
 
 
