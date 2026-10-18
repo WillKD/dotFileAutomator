@@ -35,7 +35,14 @@ if [[ -f "$FILE" ]]; then
 else
 	echo "File Not Found!"
 fi
+# Copy the file for backup
+cp $FILE > "${FILE}.bak"
 
+# Move the file to the dotfiles folder
+# mv $FILE > dotfiles folder 
+
+# Create a Symbolic Link
+# Verify that SymLink creation
 
 
 
