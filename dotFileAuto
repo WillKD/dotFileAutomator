@@ -26,20 +26,22 @@
 # then move the file to the .dotfiles directory and leave a symlink to the dotfiles directory
 # in the original file
 
+FILE_NAME=".onedottest"
+
 FILE="/home/Will/.onedottest"
 
 echo "$FILE"
 
 if [[ -f "$FILE" ]]; then
-	echo "File Found."
+	echo "File Found." && cp $FILE "${FILE}.bak" && mv $FILE ~/.dotfiles/
 else
 	echo "File Not Found!"
 fi
 # Copy the file for backup
-cp $FILE > "${FILE}.bak"
+# cp $FILE  "${FILE}.bak"
 
 # Move the file to the dotfiles folder
-# mv $FILE > dotfiles folder 
+# mv $FILE  ~/.dotfiles/  
 
 # Create a Symbolic Link
 # Verify that SymLink creation
