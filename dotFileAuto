@@ -31,20 +31,15 @@ FILE_NAME=".onedottest"
 FILE="/home/Will/.onedottest"
 
 echo "$FILE"
-
+#Search for File if found Notify, Backup, Move, and Create SymLink
 if [[ -f "$FILE" ]]; then
-	echo "File Found." && cp $FILE "${FILE}.bak" && mv $FILE ~/.dotfiles/
+	echo "File Found." \
+	&& cp $FILE "${FILE}.bak" \
+	&& mv $FILE ~/.dotfiles/ \
+        # Create a Symbolic Link
 else
 	echo "File Not Found!"
 fi
-# Copy the file for backup
-# cp $FILE  "${FILE}.bak"
-
-# Move the file to the dotfiles folder
-# mv $FILE  ~/.dotfiles/  
-
-# Create a Symbolic Link
-# Verify that SymLink creation
 
 
 
