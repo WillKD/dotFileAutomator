@@ -36,6 +36,7 @@ if [[ -f "$FILE" ]]; then
 	echo "File Found." \
 	&& cp $FILE "${FILE}.bak" \
 	&& mv $FILE ~/.dotfiles/ \
+	&& ln -s ~/.dotfiles $FILE
         # Create a Symbolic Link
 else
 	echo "File Not Found!"

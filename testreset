@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+# This is just to reset my testfile to its original state
+
+rm ~/.dotfiles/.onedottest
+rm ~/.onedottest.bak
+unlink ~/.onedottest
+touch ~/.onedottest 
+
+ls -la ~/.dotfiles
+ls -la ~
+
