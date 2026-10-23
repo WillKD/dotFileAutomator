@@ -1,0 +1,82 @@
+t immediately if a command exits with a non-zero status
+set -e
+
+# --- CONFIGURATION ---
+DOTFILES_DIR="$HOME/dotfiles"
+BACKUP_DIR="$HOME/dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+
+# List of files/folders to symlink into the $HOME directory
+# Format: "source_inside_dotfiles_folder:destination_in_home"
+FILES_TO_LINK=(
+    "bashrc:.bashrc"
+    "zshrc:.zshrc"
+    "vimrc:.vimrc"
+    "tmux.conf:.tmux.conf"
+    "config/git:.config/git"
+    "config/alacritty:.config/alacritty"
+)
+
+# --- UTILITY FUNCTIONS ---
+info() { echo -e "\033[1;34m[INFO]\033[0m $1"; }
+success() { echo -e "\033[1;32m[SUCCESS]\033[0m $1"; }
+warn() { echo -e "\033[1;33m[WARNING]\033[0m $1"; }
+
+# --- STEP 1: INITIALIZATION ---
+info "Starting dotfile automation..."
+mkdir -p "$BACKUP_DIR"
+
+# --- STEP 2: SYMLINKING LOGIC ---
+for item in "${FILES_TO_LINK[@]}"; do
+    # Split the string by the colon delimiter
+    src="${item%%:*}"
+    dst="${item#*:}"
+    
+    src_path="$DOTFILES_DIR/$src"
+    dst_path="$HOME/$dst"
+    
+    # Ensure parent directory of the destination exists (e.g., ~/.config/)
+    mkdir -p "$(dirname "$dst_path")"
+    
+    # Check if a file or symlink already exists at destination
+    if [ -e "$dst_path" ] || [ -L "$dst_path" ]; then
+        # If it's already a correct symlink, skip it
+        if [ "$(readlink "$dst_path")" = "$src_path" ]; then
+            info "Skipping: $dst is already correctly linked."
+            continue
+        fi
+        
+        # If it's an existing file/backup, move it out of the way
+        warn "Existing file found at $dst_path. Moving to backup directory."
+        mv "$dst_path" "$BACKUP_DIR/"
+    fi
+    
+    # Create the symbolic link
+    info "Linking $src_path -> $dst_path"
+    ln -s "$src_path" "$dst_path"
+done
+
+# --- STEP 3: SYSTEM PACKAGE INSTALLATION (Optional) ---
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    info "Mac OS detected. Checking for Homebrew..."
+    if ! command -v brew &> /dev/null; then
+        info "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://githubusercontent.com)"
+    fi
+    # Install apps if a Brewfile exists
+    if [ -f "$DOTFILES_DIR/Brewfile" ]; then
+        info "Installing packages from Brewfile..."
+        brew bundle --file="$DOTFILES_DIR/Brewfile"
+    fi
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if command -v apt-get &> /dev/null; then
+        info "Debian/Ubuntu detected. Updating and installing core tools..."
+        sudo apt-get update && sudo apt-get install -y git vim tmux curl
+    fi
+fi
+
+# --- STEP 4: CLEANUP & FINISH ---
+# Delete backup dir if it ended up empty
+rmdir "$BACKUP_DIR" 2>/dev/null || info "Backups saved to $BACKUP_DIR"
+
+success "Dotfiles automation complete! Restart your shell to see changes."
+

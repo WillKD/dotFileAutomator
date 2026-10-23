@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Stop if you encounter an error, unitialized/unset(empty/missing) variable, or if any pipeline fails.
+set -euo pipefail
+
+# Files to backup, dotfile, & symlink
+FILES_TO_LINK=(
+	.bashrc
+)
+
+# find file and copy the path.
+find "$HOME" -type f -name .bashrc""
+# Create a dotfile if one does not exists
+
+# Parse the path to use with commands for copying, backing up, and creating symlink.
+# if it exist make a backup, copy to dotfiles, and create a symlink.
+
+
+
+
