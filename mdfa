@@ -5,9 +5,11 @@ set -euo pipefail
 
 # Files to backup, dotfile, & symlink
 FILES_TO_LINK=(
-
+	.bashrc
 )
+
 # find file and copy the path.
+find "$HOME" -type f -name .bashrc""
 # Create a dotfile if one does not exists
 
 # Parse the path to use with commands for copying, backing up, and creating symlink.
