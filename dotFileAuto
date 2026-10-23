@@ -25,7 +25,16 @@
 # then copy onedotfile to a backup
 # then move the file to the .dotfiles directory and leave a symlink to the dotfiles directory
 # in the original file
-
+# FILES_TO_Track:
+# ~/.config/i3/config
+# ~/.config/i3status/config
+# ~/.config/bat/config
+# ~/.config/alacritty/alacritty.toml
+# ~/.config/gitconfig
+# ~/.Xresources 
+# ~/.tmux.conf
+# ~/..vimrc
+# ~/.bashrc
 FILE_NAME=".onedottest"
 
 FILE="/home/Will/.onedottest"
